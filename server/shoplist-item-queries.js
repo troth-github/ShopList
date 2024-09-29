@@ -55,13 +55,13 @@ const updateListItem = (request, response) => {
     const { itemname, description, quantity, purchased } = request.body
 
     pool.query(
-        'UPDATE shoplist_items SET itemname = $1, description = $2, quantity = $3, purchased = $4 WHERE id = $5',
+        'UPDATE shoplist_items SET itemname = $1, description = $2, quantity = $3, purchased = $4 WHERE id = $5 RETURNING *',
         [itemname, description, quantity, purchased, id],
         (error, results) => {
             if (error) {
                 throw error
             }
-            response.status(200).send(`Item modified with ID: ${id}`)
+            response.status(200).json(results.rows[0]);
         }
     )
 }

@@ -1,0 +1,50 @@
+@import "../../styles/colors.scss";
+
+.table-item {
+  display: flex;
+  text-align: left;
+  margin: auto;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &__white-border-box {
+    width: 80%;
+    height: 80px;
+    border: thin $gray-3 solid;
+    border-radius: 5px;
+  }
+}
+
+.row_container {
+  width: 100%;
+  display: flex;
+}
+
+.first-column {
+  margin: 0 30px;
+  display: flex;
+}
+
+.second-column {
+  width: 85%;
+
+  &__second-text {
+    font-size: 14px;
+    color: #868e96;
+    margin-top: 6px;
+  }
+}
+
+.edit-column {
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.material-icon-hover:hover {
+  cursor: pointer;
+  color: #adb5bd;
+}
+
+.delete-column {
+  margin-top: 10px;
+}

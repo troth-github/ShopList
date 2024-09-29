@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { getShoppingList } from '../state/actions/shop-list-actions';
 import {IShopListItem, IShopListState} from "../state/types";
 import {connect} from "react-redux";
 import * as shoplistSelectors from '../state/selectors/shoplist-selectors';
 import {IApplicationState} from "../store/store";
+import ShopListTableItem from './shop-list-item/shop-list-table-item'
+import './shop-list-page.scss'
 
 export interface IShoplistPageProps {
     shopListData: IShopListState;
@@ -21,14 +22,12 @@ function ShopListPage({shopListData, fetchShoppingList}: IShoplistPageProps) {
 
     console.log('shopListData is: ', shopListData);
     return (
-        <div style={{marginTop: '100px'}}>
-            Hey. Here's the page
+        <div className='shop-list-page'>
             {
-                <div>
+                <div className='shop-list-page-table'>
                     {shopListData.shopListItems.map((item: IShopListItem, idx: number) => {
-                        return(<li key={idx}>{item.itemname} ({item.description})</li>)
+                        return(<ShopListTableItem key={idx} shopListItem={item} />)
                     })}
-                    <button onClick={() => {fetchShoppingList()}}>Hekka</button>
                 </div>
             }
             <div>{shopListData.fetchingShopList}</div>
