@@ -4,15 +4,24 @@ import './shop-list-table-item.scss';
 import {connect} from "react-redux";
 import {IApplicationState} from "../../store/store";
 import * as shoplistSelectors from "../../state/selectors/shoplist-selectors";
-import {getShoppingList, markShoplistItemPurchased} from "../../state/actions/shop-list-actions";
+import {updateShoplistItem, setIsDeleteDialogOpen} from "../../state/actions/shop-list-actions";
+import DeleteModal from "../../modals/delete-modal";
 
 
 interface IShopListItemProps {
     shopListItem: IShopListItem,
     sendShoplistItemPurchased: (shoplistItem: IShopListItem) => void;
+    isDeleteDialogOpen: boolean;
+    setTheDeleteDialogOpen: (isOpen: boolean) => void;
 }
-function ShoplistTableItem(shopListItemProps: IShopListItemProps) {
-    const shopListItem = shopListItemProps.shopListItem;
+
+function ShoplistTableItem(
+{
+    shopListItem,
+    sendShoplistItemPurchased,
+    setTheDeleteDialogOpen,
+    isDeleteDialogOpen,
+}: IShopListItemProps) {
     console.log('the shopListItem is:', shopListItem);
 
     return (
@@ -26,7 +35,7 @@ function ShoplistTableItem(shopListItemProps: IShopListItemProps) {
                         onChange={() => {
                             const theItem = {...shopListItem};
                             theItem.purchased = !(theItem.purchased);
-                            shopListItemProps.sendShoplistItemPurchased(theItem);
+                            sendShoplistItemPurchased(theItem);
                         }}
                     />
                 </span>
@@ -45,21 +54,24 @@ function ShoplistTableItem(shopListItemProps: IShopListItemProps) {
                 </span>
                 {/*Delete*/}
                 <span className='delete-column'>
-                    <div className="material-icons material-icon-hover">delete</div>
+                    <div className="material-icons material-icon-hover" onClick={() => {
+                        setTheDeleteDialogOpen(!isDeleteDialogOpen)
+                    }}>delete</div>
                 </span>
             </div>
+            {isDeleteDialogOpen && <DeleteModal shoplistItem={shopListItem}/>}
         </div>
-
     )
 }
 
 export default connect(
     (state: IApplicationState) => ({
-        unUnused: shoplistSelectors.getShoplistData(state),
+        isDeleteDialogOpen: shoplistSelectors.getDeleteDialogIsOpen(state),
     }),
     (dispatch) => ({
         sendShoplistItemPurchased: (shoplistItem: IShopListItem) => {
-            dispatch(markShoplistItemPurchased.started({shoplistItem}));
+            dispatch(updateShoplistItem.started({shoplistItem}));
         },
+        setTheDeleteDialogOpen: (isOpen: boolean) => {dispatch(setIsDeleteDialogOpen({isOpen})); },
     })
 )(ShoplistTableItem);

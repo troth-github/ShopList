@@ -1,8 +1,52 @@
 .shop-list-page {
   margin-top: 80px;
+  font-family: 'Nunito', sans-serif;
 }
 
 .shop-list-page-table {
   text-align: center;
-  font-family: 'Nunito', sans-serif;
+}
+
+.your-items-text {
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.shop-list-add-section {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+  margin-bottom: 10px;
+  align-items: end;
+}
+
+.add-item-button {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  border: none;
+  color: #fff;
+  background: #1871e8;
+  transition: all 0.25s ease;
+}
+
+.waiting-for-data {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  animation: spin 2s linear infinite;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-top: 200px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -7,6 +7,7 @@ const shopListState: IShopListState = {
     fetchingShopList: false,
     fetchingShopListError: false,
     shopListItems: [],
+    deleteDialogIsOpen: false,
 };
 
 export function shopList(state: IShopListState = shopListState, action: any): IShopListState {
@@ -36,11 +37,18 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
         };
     }
 
-    if (isType(action, Actions.markShoplistItemPurchased.done)) {
-        console.log('purchased reducer: ', action.payload);
+    if (isType(action, Actions.updateShoplistItem.done)) {
         return {
             ...state,
             shopListItems: updateShopListItems(action.payload, state),
+        }
+    }
+
+    if (isType(action, Actions.setIsDeleteDialogOpen)) {
+        console.log('In reducer setDialogOpen.  payload is: ', action.payload);
+        return {
+            ...state,
+            deleteDialogIsOpen: action.payload.isOpen,
         }
     }
 
@@ -50,7 +58,7 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
 const updateShopListItems = (shopListItem: any, state: IShopListState) => {
     const ourItems = JSON.parse(JSON.stringify(state.shopListItems));  // deep clone
 
-    const foundIndex = ourItems.findIndex((item: IShopListItem) => item.id == shopListItem.id);
+    const foundIndex = ourItems.findIndex((item: IShopListItem) => item.id === shopListItem.id);
     ourItems[foundIndex] = shopListItem;
 
     return ourItems;

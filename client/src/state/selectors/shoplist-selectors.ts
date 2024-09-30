@@ -10,3 +10,10 @@ export const getShoplistData = createSelector(
         return data;
     }
 );
+
+export const getDeleteDialogIsOpen = createSelector(
+    [getData],
+    (data: IShopListState) => {
+        return data.deleteDialogIsOpen;
+    }
+);

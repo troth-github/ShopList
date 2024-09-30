@@ -12,7 +12,10 @@ export interface IShoplistPageProps {
     fetchShoppingList: () => void;
 }
 
-function ShopListPage({shopListData, fetchShoppingList}: IShoplistPageProps) {
+function ShopListPage({
+    shopListData,
+    fetchShoppingList,
+}: IShoplistPageProps) {
     // const shopListDataTiger = useAppSelector(state => state.shopList);
     // const dispatch: any = useAppDispatch();
     //
@@ -23,12 +26,21 @@ function ShopListPage({shopListData, fetchShoppingList}: IShoplistPageProps) {
     console.log('shopListData is: ', shopListData);
     return (
         <div className='shop-list-page'>
-            {
-                <div className='shop-list-page-table'>
-                    {shopListData.shopListItems.map((item: IShopListItem, idx: number) => {
-                        return(<ShopListTableItem key={idx} shopListItem={item} />)
-                    })}
-                </div>
+            {shopListData.fetchingShopList &&
+                <div className='waiting-for-data' />
+            }
+            {shopListData.shopListItems.length > 0 &&
+                <>
+                    <div className='shop-list-add-section'>
+                        <div className='your-items-text'>Your Items</div>
+                        <button className='add-item-button'>Add Item</button>
+                    </div>
+                    <div className='shop-list-page-table'>
+                        {shopListData.shopListItems.map((item: IShopListItem, idx: number) => {
+                            return(<ShopListTableItem key={idx} shopListItem={item} />)
+                        })}
+                    </div>
+                </>
             }
             <div>{shopListData.fetchingShopList}</div>
         </div>

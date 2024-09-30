@@ -10,4 +10,5 @@ export interface IShopListState {
     fetchingShopList: boolean;
     fetchingShopListError: boolean;
     shopListItems: any;
+    deleteDialogIsOpen: boolean;
 }

@@ -13,7 +13,7 @@ const fetchShoplistItems = async () => {
     return response.data;
 }
 
-const markShoppingListItemPurchased = async (shoplistItem: IShopListItem) => {
+const updateShoplistItem = async (shoplistItem: IShopListItem) => {
     const url = `http://localhost:3001/api/shoplistitem/${shoplistItem.id}`;
 
     console.log('before axios call mark purchased');
@@ -32,5 +32,5 @@ const markShoppingListItemPurchased = async (shoplistItem: IShopListItem) => {
 
 export {
     fetchShoplistItems,
-    markShoppingListItemPurchased,
+    updateShoplistItem,
 }
