@@ -17,3 +17,10 @@ export const getDeleteDialogIsOpen = createSelector(
         return data.deleteDialogIsOpen;
     }
 );
+
+export const getCreateNewDialogIsOpen = createSelector(
+    [getData],
+    (data: IShopListState) => {
+        return data.newCreateDialogIsOpen;
+    }
+);

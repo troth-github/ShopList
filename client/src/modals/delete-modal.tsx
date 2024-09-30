@@ -15,9 +15,11 @@ function DeleteModal({shoplistItem, setDeleteDialogIsOpen}: IDeleteModalProps) {
         <>
             <div className='dark-back-ground' onClick={() => setDeleteDialogIsOpen(false)} />
             <div className='modal-centered'>
-                <div className='modal'>=
-                    <h5 className='modal-heading'>Delete item?</h5>
-                    <div className='explain-text'>Are you sure you want to delete the item?  This cannot be undone.</div>
+                <div className='modal'>
+                    <div className='modal-content'>
+                        <div className='modal-heading'>Delete item?</div>
+                        <div className='explain-text'>Are you sure you want to delete the item?  This cannot be undone.</div>
+                    </div>
                     <div className='modal-actions'>
                         <div className='actions-container'>
                             <button className='cancel-modal-button' onClick={() => setDeleteDialogIsOpen(false)}>

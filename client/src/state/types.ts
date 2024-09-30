@@ -1,5 +1,5 @@
 export interface IShopListItem {
-    id: number;
+    id?: number;
     itemname: string;
     description: string;
     quantity: number;
@@ -11,4 +11,5 @@ export interface IShopListState {
     fetchingShopListError: boolean;
     shopListItems: any;
     deleteDialogIsOpen: boolean;
+    newCreateDialogIsOpen: boolean;
 }

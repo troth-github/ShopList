@@ -1,0 +1,43 @@
+.input-control {
+  width: 97%;
+  height: 40px;
+  outline: none;
+  border: thin solid lightgrey;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.text-area-control {
+  width: 97%;
+  height: 80px;
+  outline: none;
+  border: thin solid lightgrey;
+  border-radius: 3px;
+  resize: none;
+}
+
+.text-area-section {
+  position: relative;
+  display:inline-block;
+  width: 100%;
+}
+
+.text-area-section .char-count {
+  color: lightgrey;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+}
+
+.modal-content textarea::placeholder {
+  padding-top: 10px;
+  padding-left: 8px;
+  color: lightgrey;
+}
+
+.modal-content input::placeholder {
+  color: lightgrey;
+  padding-left: 8px;
+}

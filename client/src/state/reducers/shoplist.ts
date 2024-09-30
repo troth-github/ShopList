@@ -8,6 +8,7 @@ const shopListState: IShopListState = {
     fetchingShopListError: false,
     shopListItems: [],
     deleteDialogIsOpen: false,
+    newCreateDialogIsOpen: false,
 };
 
 export function shopList(state: IShopListState = shopListState, action: any): IShopListState {
@@ -45,10 +46,17 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
     }
 
     if (isType(action, Actions.setIsDeleteDialogOpen)) {
-        console.log('In reducer setDialogOpen.  payload is: ', action.payload);
         return {
             ...state,
             deleteDialogIsOpen: action.payload.isOpen,
+        }
+    }
+
+    if (isType(action, Actions.setIsNewCreateDialogOpen)) {
+        console.log('In reducer setDialogOpen.  payload is: ', action.payload);
+        return {
+            ...state,
+            newCreateDialogIsOpen: action.payload.isOpen,
         }
     }
 
