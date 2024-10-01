@@ -4,8 +4,8 @@
   outline: none;
   border: thin solid lightgrey;
   border-radius: 3px;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 18px;
+  margin-top: 18px;
 }
 
 .text-area-control {
@@ -21,13 +21,14 @@
   position: relative;
   display:inline-block;
   width: 100%;
+  margin-bottom: 18px;
 }
 
 .text-area-section .char-count {
   color: lightgrey;
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 15px;
   font-size: 12px;
 }
 
@@ -40,4 +41,8 @@
 .modal-content input::placeholder {
   color: lightgrey;
   padding-left: 8px;
+}
+
+.select-control {
+
 }

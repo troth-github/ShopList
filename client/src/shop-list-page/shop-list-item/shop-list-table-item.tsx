@@ -50,11 +50,11 @@ function ShoplistTableItem(
                 </span>
                 {/*Edit*/}
                 <span className='edit-column'>
-                    <div className="material-icons material-icon-hover">edit</div>
+                    <div className="material-icons-outlined material-icon-hover">edit</div>
                 </span>
                 {/*Delete*/}
                 <span className='delete-column'>
-                    <div className="material-icons material-icon-hover" onClick={() => {
+                    <div className="material-icons-outlined material-icon-hover" onClick={() => {
                         setTheDeleteDialogOpen(!isDeleteDialogOpen)
                     }}>delete</div>
                 </span>

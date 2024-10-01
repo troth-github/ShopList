@@ -6,7 +6,7 @@ import * as shoplistSelectors from '../state/selectors/shoplist-selectors';
 import {IApplicationState} from "../store/store";
 import ShopListTableItem from './shop-list-item/shop-list-table-item'
 import './shop-list-page.scss'
-import NewEditModal from "../modals/new-edit-modal";
+import NewEditModal from "../modals/new-edit-modal/new-edit-modal";
 
 export interface IShoplistPageProps {
     shopListData: IShopListState;
