@@ -3,7 +3,7 @@ import React from 'react';
 const customSelectStyles = {
     singleValue: (provided: any, state: any) => ({
         ...provided,
-        color: '#696969', // Change the text color of the selected value
+        color: '#9ca8b4', // Change the text color of the selected value
         fontSize: 14
     }),
     control: (base: any, state: any) => ({
@@ -19,7 +19,7 @@ const customSelectStyles = {
     option: (provided: any, state: any) => ({
         ...provided,
         backgroundColor: state.isSelected ? '#f1f3f5' : 'white',
-        color: '#696969',
+        color: '#9ca8b4',
         fontSize: 14,
         padding: 10,
         cursor: 'pointer',

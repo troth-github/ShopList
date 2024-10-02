@@ -3,7 +3,6 @@ import {IShopListItem} from "../../state/types";
 import './shop-list-table-item.scss';
 import {connect} from "react-redux";
 import {IApplicationState} from "../../store/store";
-import * as shoplistSelectors from "../../state/selectors/shoplist-selectors";
 import {
     updateShoplistItem,
 } from "../../state/actions/shop-list-actions";
@@ -46,9 +45,12 @@ function ShoplistTableItem(
                     <div>
                         {shopListItem.itemname}
                     </div>
-                    <div className='second-column second-column__second-text'>
-                        {shopListItem.description}
-                    </div>
+                    {shopListItem.description.length > 0 &&
+                        // Its possible there is no description.
+                        <div className='second-column second-column__second-text'>
+                            {shopListItem.description}
+                        </div>
+                    }
                 </span>
                 {/*Edit*/}
                 <span key={`${shopListItem.id}-key`} className='edit-column'>

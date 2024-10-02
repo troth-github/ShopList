@@ -63,6 +63,7 @@ function NewEditModal({
                 <div className='modal modal__new-create-modal'>
                     <div className='create-edit-banner'>
                         <div className='banner-text'>SHOPPING LIST</div>
+                        <div className='material-icons banner-icon'>last_page</div>
                     </div>
                     <div className='modal-content'>
                         <div className='modal-heading modal-heading__new-create-dlg'>{isCreate ? 'Add an Item' : 'Edit an Item'}</div>

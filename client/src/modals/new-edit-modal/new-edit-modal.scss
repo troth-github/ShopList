@@ -6,6 +6,7 @@
   border-radius: 3px;
   margin-bottom: 18px;
   margin-top: 18px;
+  color: #9ca8b4;
 }
 
 .text-area-control {
@@ -15,6 +16,7 @@
   border: thin solid lightgrey;
   border-radius: 3px;
   resize: none;
+  color: #9ca8b4;
 }
 
 .text-area-section {
@@ -25,11 +27,11 @@
 }
 
 .text-area-section .char-count {
-  color: lightgrey;
   position: absolute;
   bottom: 10px;
   right: 15px;
   font-size: 12px;
+  font-weight: 400;
 }
 
 .modal-content textarea::placeholder {

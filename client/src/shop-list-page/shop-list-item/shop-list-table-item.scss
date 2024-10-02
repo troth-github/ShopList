@@ -18,6 +18,7 @@
 .row_container {
   width: 100%;
   display: flex;
+  align-items: center;
 }
 
 .first-column {
@@ -27,6 +28,7 @@
 
 .second-column {
   width: 85%;
+  align-items: center;
 
   &__second-text {
     font-size: 14px;
