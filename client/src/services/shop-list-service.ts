@@ -43,8 +43,20 @@ const addShoplistItem = async (shoplistItem: IShopListItem) => {
     return response.data;
 }
 
+const deleteShoplistItem = async (shoplistItem: IShopListItem) => {
+    const url = `http://localhost:3001/api/shoplistitem/${shoplistItem.id}`;
+
+    console.log('before axios call delete item');
+    const response = await axios.delete(url);
+
+    console.log('In service create...response.data is: ', response.data);
+
+    return response.data;
+}
+
 export {
     fetchShoplistItems,
     updateShoplistItem,
     addShoplistItem,
+    deleteShoplistItem
 }

@@ -71,11 +71,11 @@ const updateListItem = (request, response) => {
 const deleteListItem = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('DELETE FROM shoplist_items WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM shoplist_items WHERE id = $1 RETURNING *', [id], (error, results) => {
         if (error) {
             throw error
         }
-        response.status(200).send(`Item deleted with ID: ${id}`)
+        response.status(200).json(results.rows[0]);
     })
 }
 

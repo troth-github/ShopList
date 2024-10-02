@@ -9,6 +9,8 @@ const shopListState: IShopListState = {
     shopListItems: [],
     creatingShoplistItem: false,
     createShoplistItemError: false,
+    deletingShoplistItem: false,
+    deleteShoplistItemError: false,
 };
 
 export function shopList(state: IShopListState = shopListState, action: any): IShopListState {
@@ -64,9 +66,35 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
     if (isType(action, Actions.createShoplistItem.done)) {
         return {
             ...state,
-            fetchingShopList: false,
-            fetchingShopListError: false,
+            creatingShoplistItem: false,
+            createShoplistItemError: false,
             shopListItems: addShoplistItem(action.payload, state),
+        };
+    }
+
+    if (isType(action, Actions.deleteShoplistItem.started)) {
+        return {
+            ...state,
+            deletingShoplistItem: true,
+            deleteShoplistItemError: false,
+        };
+    }
+
+    if (isType(action, Actions.deleteShoplistItem.failed)) {
+        return {
+            ...state,
+            deletingShoplistItem: false,
+            deleteShoplistItemError: true,
+        };
+    }
+
+    if (isType(action, Actions.deleteShoplistItem.done)) {
+        console.log('In delete reducer done. payload is: ', action.payload)
+        return {
+            ...state,
+            deletingShoplistItem: false,
+            deleteShoplistItemError: false,
+            shopListItems: deleteShoplistItem(action.payload, state),
         };
     }
 
@@ -87,5 +115,13 @@ const addShoplistItem = (shopListItem: any, state: IShopListState) => {
     ourItems.push(shopListItem);
 
     return ourItems;
+}
+
+const deleteShoplistItem = (shopListItem: any, state: IShopListState) => {
+    const ourItems = JSON.parse(JSON.stringify(state.shopListItems));  // deep clone
+
+    const newItemsList = ourItems.filter((item: IShopListItem) => item.id !== shopListItem.id);
+
+    return newItemsList;
 }
 

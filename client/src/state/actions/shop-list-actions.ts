@@ -14,3 +14,7 @@ export const updateShoplistItem = actionCreator.async<{shoplistItem: IShopListIt
 export const createShoplistItem = actionCreator.async<{shoplistItem: IShopListItem},
     {shoppingList: object},
     {error: string}>('CREATE_SHOP_LIST_ITEM');
+
+export const deleteShoplistItem = actionCreator.async<{shoplistItem: IShopListItem},
+    {shoppingList: object},
+    {error: string}>('DELETE_SHOP_LIST_ITEM');

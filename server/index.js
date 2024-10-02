@@ -14,10 +14,14 @@ app.get('/api/shoplist/:id', db.getListItem);
 app.post('/api/shoplistitem', (req, res) => {
     db.createShoplistItem(req, res);
 });
+
 app.put('/api/shoplistitem/:id', (req, res) => {
     db.updateListItem(req, res);
 });
-app.delete('/api/shoplistitem/:id', db.deleteListItem);
+
+app.delete('/api/shoplistitem/:id', (req, res) => {
+    db.deleteListItem(req, res);
+});
 
 app.get("/api", (req, res) => {
     res.json({

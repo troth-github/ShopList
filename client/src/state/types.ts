@@ -12,4 +12,6 @@ export interface IShopListState {
     shopListItems: any;
     creatingShoplistItem: boolean;
     createShoplistItemError: boolean;
+    deletingShoplistItem: boolean;
+    deleteShoplistItemError: boolean;
 }
