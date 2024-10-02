@@ -5,10 +5,7 @@ import {IShopListItem} from "../state/types";
 const fetchShoplistItems = async () => {
     const url = 'http://localhost:3001/api/shoplistitems';
 
-    console.log('before axios call');
     const response = await axios.get(url);
-
-    console.log('In service...response.data is: ', response.data);
 
     return response.data;
 }
@@ -16,7 +13,6 @@ const fetchShoplistItems = async () => {
 const updateShoplistItem = async (shoplistItem: IShopListItem) => {
     const url = `http://localhost:3001/api/shoplistitem/${shoplistItem.id}`;
 
-    console.log('before axios call mark purchased');
     const itemDataBody = {
         itemname: shoplistItem.itemname,
         description: shoplistItem.description,
@@ -25,7 +21,24 @@ const updateShoplistItem = async (shoplistItem: IShopListItem) => {
     }
     const response = await axios.put(url, itemDataBody);
 
-    console.log('In service mark purchased...response.data is: ', response.data);
+    console.log('In service update...response.data is: ', response.data);
+
+    return response.data;
+}
+
+const addShoplistItem = async (shoplistItem: IShopListItem) => {
+    const url = `http://localhost:3001/api/shoplistitem`;
+
+    console.log('before axios call create item');
+    const itemDataBody = {
+        itemname: shoplistItem.itemname,
+        description: shoplistItem.description,
+        quantity: shoplistItem.quantity,
+        purchased: shoplistItem.purchased,
+    }
+    const response = await axios.post(url, itemDataBody);
+
+    console.log('In service create...response.data is: ', response.data);
 
     return response.data;
 }
@@ -33,4 +46,5 @@ const updateShoplistItem = async (shoplistItem: IShopListItem) => {
 export {
     fetchShoplistItems,
     updateShoplistItem,
+    addShoplistItem,
 }

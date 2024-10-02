@@ -11,16 +11,3 @@ export const getShoplistData = createSelector(
     }
 );
 
-export const getDeleteDialogIsOpen = createSelector(
-    [getData],
-    (data: IShopListState) => {
-        return data.deleteDialogIsOpen;
-    }
-);
-
-export const getCreateNewDialogIsOpen = createSelector(
-    [getData],
-    (data: IShopListState) => {
-        return data.newCreateDialogIsOpen;
-    }
-);

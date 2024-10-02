@@ -101,6 +101,10 @@
   transition: all 0.25s ease;
 }
 
+.main-modal-button:disabled {
+  background-color: #9db9de;
+}
+
 .cancel-modal-button {
   cursor: pointer;
   font-weight: 500;

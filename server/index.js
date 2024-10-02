@@ -11,7 +11,9 @@ app.use(bodyParser.json())
 
 app.get('/api/shoplistitems', db.getShoplistItems);
 app.get('/api/shoplist/:id', db.getListItem);
-app.post('/api/shoplistitem', db.getListItem);
+app.post('/api/shoplistitem', (req, res) => {
+    db.createShoplistItem(req, res);
+});
 app.put('/api/shoplistitem/:id', (req, res) => {
     db.updateListItem(req, res);
 });

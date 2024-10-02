@@ -3,17 +3,16 @@ import {IShopListItem} from "../state/types";
 import '../styles/modal.scss'
 import {connect} from "react-redux";
 import {IApplicationState} from "../store/store";
-import {setIsDeleteDialogOpen} from "../state/actions/shop-list-actions";
 
 interface IDeleteModalProps {
     shoplistItem: IShopListItem,
-    setDeleteDialogIsOpen: (isOpen: boolean) => void;
+    setDeleteDialogOpen: (isOpen: boolean) => void;
 }
 
-function DeleteModal({shoplistItem, setDeleteDialogIsOpen}: IDeleteModalProps) {
+function DeleteModal({shoplistItem, setDeleteDialogOpen}: IDeleteModalProps) {
     return (
         <>
-            <div className='dark-back-ground' onClick={() => setDeleteDialogIsOpen(false)} />
+            <div className='dark-back-ground' onClick={() => setDeleteDialogOpen(false)} />
             <div className='modal-centered'>
                 <div className='modal'>
                     <div className='modal-content'>
@@ -22,10 +21,10 @@ function DeleteModal({shoplistItem, setDeleteDialogIsOpen}: IDeleteModalProps) {
                     </div>
                     <div className='modal-actions'>
                         <div className='actions-container'>
-                            <button className='cancel-modal-button' onClick={() => setDeleteDialogIsOpen(false)}>
+                            <button className='cancel-modal-button' onClick={() => setDeleteDialogOpen(false)}>
                                 Cancel
                             </button>
-                            <button className='main-modal-button' onClick={() => setDeleteDialogIsOpen(false)}>
+                            <button className='main-modal-button' onClick={() => setDeleteDialogOpen(false)}>
                                 Delete
                             </button>
                         </div>
@@ -40,6 +39,5 @@ export default connect(
     (state: IApplicationState) => ({
     }),
     (dispatch) => ({
-        setDeleteDialogIsOpen: (isOpen: boolean) => {dispatch(setIsDeleteDialogOpen({isOpen})); },
     })
 )(DeleteModal);

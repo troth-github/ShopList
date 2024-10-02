@@ -42,11 +42,13 @@ const getListItem = (request, response) => {
 const createShoplistItem = (request, response) => {
     const { itemname, description, quantity, purchased } = request.body;
 
-    pool.query('INSERT INTO shoplist_items (itemname, description, quantity, purchased) VALUES ($1, $2, $3, $4) RETURNING *', [name, email], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(201).send(`Item added with ID: ${results.rows[0].id}`)
+    pool.query('INSERT INTO shoplist_items (itemname, description, quantity, purchased) VALUES ($1, $2, $3, $4) RETURNING *',
+        [itemname, description, quantity, purchased],
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(results.rows[0]);
     })
 }
 

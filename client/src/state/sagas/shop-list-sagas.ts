@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import * as Actions from '../actions/shop-list-actions';
-import { fetchShoplistItems, updateShoplistItem } from '../../services/shop-list-service'
+import { fetchShoplistItems, updateShoplistItem, addShoplistItem } from '../../services/shop-list-service'
 import {IShopListItem} from "../types";
 
 function* getShoppingListSaga(action: {payload:{}}): IterableIterator<any> {
@@ -32,7 +32,23 @@ function* updateShoplistItemSaga(action: {payload:{shoplistItem: IShopListItem}}
     }
 }
 
+function* createShoplistItemSaga(action: {payload:{shoplistItem: IShopListItem}}): IterableIterator<any> {
+    const shoplistItem = action.payload.shoplistItem;
+
+    try {
+        const createdShoplistItem = yield call(addShoplistItem, shoplistItem);
+
+        // @ts-ignore
+        yield put(Actions.createShoplistItem.done(createdShoplistItem));
+    } catch (e) {
+        console.error(e);
+        // @ts-ignore
+        yield put(Actions.createShoplistItem.failed(null, {error: e}))
+    }
+}
+
 export default [
     takeLatest(Actions.getShoppingList.started, getShoppingListSaga),
     takeLatest(Actions.updateShoplistItem.started, updateShoplistItemSaga),
+    takeLatest(Actions.createShoplistItem.started, createShoplistItemSaga),
 ]

@@ -7,8 +7,8 @@ const shopListState: IShopListState = {
     fetchingShopList: false,
     fetchingShopListError: false,
     shopListItems: [],
-    deleteDialogIsOpen: false,
-    newCreateDialogIsOpen: false,
+    creatingShoplistItem: false,
+    createShoplistItemError: false,
 };
 
 export function shopList(state: IShopListState = shopListState, action: any): IShopListState {
@@ -45,19 +45,29 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
         }
     }
 
-    if (isType(action, Actions.setIsDeleteDialogOpen)) {
+    if (isType(action, Actions.createShoplistItem.started)) {
         return {
             ...state,
-            deleteDialogIsOpen: action.payload.isOpen,
-        }
+            creatingShoplistItem: true,
+            createShoplistItemError: false,
+        };
     }
 
-    if (isType(action, Actions.setIsNewCreateDialogOpen)) {
-        console.log('In reducer setDialogOpen.  payload is: ', action.payload);
+    if (isType(action, Actions.createShoplistItem.failed)) {
         return {
             ...state,
-            newCreateDialogIsOpen: action.payload.isOpen,
-        }
+            creatingShoplistItem: false,
+            createShoplistItemError: true,
+        };
+    }
+
+    if (isType(action, Actions.createShoplistItem.done)) {
+        return {
+            ...state,
+            fetchingShopList: false,
+            fetchingShopListError: false,
+            shopListItems: addShoplistItem(action.payload, state),
+        };
     }
 
     return state;
@@ -68,6 +78,13 @@ const updateShopListItems = (shopListItem: any, state: IShopListState) => {
 
     const foundIndex = ourItems.findIndex((item: IShopListItem) => item.id === shopListItem.id);
     ourItems[foundIndex] = shopListItem;
+
+    return ourItems;
+}
+
+const addShoplistItem = (shopListItem: any, state: IShopListState) => {
+    const ourItems = JSON.parse(JSON.stringify(state.shopListItems));  // deep clone
+    ourItems.push(shopListItem);
 
     return ourItems;
 }

@@ -7,9 +7,10 @@ export const getShoppingList =  actionCreator.async<{},
     {shoppinglist: object},
     {error: string}>('GET_SHOPPING_LIST');
 
-export const updateShoplistItem =  actionCreator.async<{shoplistItem: IShopListItem},
+export const updateShoplistItem = actionCreator.async<{shoplistItem: IShopListItem},
     {shoppingList: object},
-    {error: string}>('MARK_SHOP_LIST_ITEM_PURCHASED');
+    {error: string}>('UPDATE_SHOP_LIST_ITEM');
 
-export const setIsDeleteDialogOpen =  actionCreator<{isOpen: boolean}>('SET_IS_DELETE_DIALOG_OPEN');
-export const setIsNewCreateDialogOpen =  actionCreator<{isOpen: boolean}>('SET_IS_NEW_CREATE_DIALOG_OPEN');
+export const createShoplistItem = actionCreator.async<{shoplistItem: IShopListItem},
+    {shoppingList: object},
+    {error: string}>('CREATE_SHOP_LIST_ITEM');

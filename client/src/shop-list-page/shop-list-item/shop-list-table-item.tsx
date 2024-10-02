@@ -1,28 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {IShopListItem} from "../../state/types";
 import './shop-list-table-item.scss';
 import {connect} from "react-redux";
 import {IApplicationState} from "../../store/store";
 import * as shoplistSelectors from "../../state/selectors/shoplist-selectors";
-import {updateShoplistItem, setIsDeleteDialogOpen} from "../../state/actions/shop-list-actions";
+import {
+    updateShoplistItem,
+} from "../../state/actions/shop-list-actions";
 import DeleteModal from "../../modals/delete-modal";
+import NewEditModal from "../../modals/new-edit-modal/new-edit-modal";
 
 
 interface IShopListItemProps {
     shopListItem: IShopListItem,
     sendShoplistItemPurchased: (shoplistItem: IShopListItem) => void;
-    isDeleteDialogOpen: boolean;
-    setTheDeleteDialogOpen: (isOpen: boolean) => void;
 }
 
 function ShoplistTableItem(
 {
     shopListItem,
     sendShoplistItemPurchased,
-    setTheDeleteDialogOpen,
-    isDeleteDialogOpen,
 }: IShopListItemProps) {
     console.log('the shopListItem is:', shopListItem);
+
+    const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     return (
         <div className='table-item table-item__white-border-box'>
@@ -49,29 +51,32 @@ function ShoplistTableItem(
                     </div>
                 </span>
                 {/*Edit*/}
-                <span className='edit-column'>
-                    <div className="material-icons-outlined material-icon-hover">edit</div>
+                <span key={`${shopListItem.id}-key`} className='edit-column'>
+                    <div className="material-icons-outlined material-icon-hover"
+                         onClick={() => {
+                             setNewCreateDialogOpen(true);
+                         }}>edit</div>
                 </span>
                 {/*Delete*/}
                 <span className='delete-column'>
-                    <div className="material-icons-outlined material-icon-hover" onClick={() => {
-                        setTheDeleteDialogOpen(!isDeleteDialogOpen)
-                    }}>delete</div>
+                    <div className="material-icons-outlined material-icon-hover"
+                         onClick={() => {
+                            setDeleteDialogOpen(!deleteDialogOpen)
+                         }}>delete</div>
                 </span>
             </div>
-            {isDeleteDialogOpen && <DeleteModal shoplistItem={shopListItem}/>}
+            {deleteDialogOpen && <DeleteModal setDeleteDialogOpen={setDeleteDialogOpen} shoplistItem={shopListItem}/>}
+            {newCreateDialogOpen && <NewEditModal setNewCreateDialogOpen={setNewCreateDialogOpen} isCreate={false} shoplistItem={shopListItem} />}
         </div>
     )
 }
 
 export default connect(
     (state: IApplicationState) => ({
-        isDeleteDialogOpen: shoplistSelectors.getDeleteDialogIsOpen(state),
     }),
     (dispatch) => ({
         sendShoplistItemPurchased: (shoplistItem: IShopListItem) => {
             dispatch(updateShoplistItem.started({shoplistItem}));
         },
-        setTheDeleteDialogOpen: (isOpen: boolean) => {dispatch(setIsDeleteDialogOpen({isOpen})); },
     })
 )(ShoplistTableItem);

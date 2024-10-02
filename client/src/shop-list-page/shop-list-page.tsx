@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {getShoppingList, setIsNewCreateDialogOpen} from '../state/actions/shop-list-actions';
+import React, {useEffect, useState} from 'react';
+import {getShoppingList} from '../state/actions/shop-list-actions';
 import {IShopListItem, IShopListState} from "../state/types";
 import {connect} from "react-redux";
 import * as shoplistSelectors from '../state/selectors/shoplist-selectors';
@@ -10,20 +10,16 @@ import NewEditModal from "../modals/new-edit-modal/new-edit-modal";
 
 export interface IShoplistPageProps {
     shopListData: IShopListState;
-    isNewCreateDialogOpen: boolean;
     fetchShoppingList: () => void;
-    setNewCreateDialogIsOpen: (isOpen: boolean) => void;
 }
 
 function ShopListPage({
     shopListData,
-    isNewCreateDialogOpen,
     fetchShoppingList,
-    setNewCreateDialogIsOpen,
 }: IShoplistPageProps) {
-    // const shopListDataTiger = useAppSelector(state => state.shopList);
-    // const dispatch: any = useAppDispatch();
-    //
+
+    const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
+
     useEffect(() => {
         fetchShoppingList();
     }, []);
@@ -38,7 +34,7 @@ function ShopListPage({
                 <>
                     <div className='shop-list-add-section'>
                         <div className='your-items-text'>Your Items</div>
-                        <button className='add-item-button' onClick={() => setNewCreateDialogIsOpen(!isNewCreateDialogOpen)}>Add Item</button>
+                        <button className='add-item-button' onClick={() => setNewCreateDialogOpen(!newCreateDialogOpen)}>Add Item</button>
                     </div>
                     <div className='shop-list-page-table'>
                         {shopListData.shopListItems.map((item: IShopListItem, idx: number) => {
@@ -47,7 +43,7 @@ function ShopListPage({
                     </div>
                 </>
             }
-            {isNewCreateDialogOpen && <NewEditModal isCreate={true} shoplistItem={{itemname: '', description: '', quantity: 1, purchased: false}}/>}
+            {newCreateDialogOpen && <NewEditModal setNewCreateDialogOpen={setNewCreateDialogOpen} isCreate={true} shoplistItem={{itemname: '', description: '', quantity: 1, purchased: false}}/>}
         </div>
     );
 }
@@ -55,11 +51,9 @@ function ShopListPage({
 export default connect(
     (state: IApplicationState) => ({
         shopListData: shoplistSelectors.getShoplistData(state),
-        isNewCreateDialogOpen: shoplistSelectors.getCreateNewDialogIsOpen(state),
     }),
     (dispatch) => ({
         fetchShoppingList: () => {dispatch(getShoppingList.started({})); },
-        setNewCreateDialogIsOpen: (isOpen: boolean) => {dispatch(setIsNewCreateDialogOpen({isOpen})); },
     })
 )(ShopListPage);
 

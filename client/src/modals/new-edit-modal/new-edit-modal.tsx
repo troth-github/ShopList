@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {IShopListItem} from "../../state/types";
 import {connect} from "react-redux";
 import {IApplicationState} from "../../store/store";
-import {setIsNewCreateDialogOpen, updateShoplistItem} from "../../state/actions/shop-list-actions";
+import {createShoplistItem, updateShoplistItem} from "../../state/actions/shop-list-actions";
 import './new-edit-modal.scss';
 import Select from 'react-select';
 import customSelectStyles from "./select-custom-styles";
@@ -11,34 +11,10 @@ import customSelectStyles from "./select-custom-styles";
 interface INewCreateModalProps {
     isCreate: boolean;
     shoplistItem: IShopListItem;
-    setNewCreateDialogIsOpen: (isOpen: boolean) => void;
-    // createShoplistItem: (shoplistItem: IShopListItem) => void;
+    createTheShoplistItem: (shoplistItem: IShopListItem) => void;
     updateTheShoplistItem: (shoplistItem: IShopListItem) => void;
+    setNewCreateDialogOpen: (isOpen: boolean) => void;
 }
-
-// const customStyles = {
-//     singleValue: (provided: any, state: any) => ({
-//         ...provided,
-//         color: '#696969', // Change the text color of the selected value
-//         fontSize: 14
-//     }),
-//     control: (base: any, state: any) => ({
-//         ...base,
-//         borderColor: 'lightgray',
-//         width: '99%'
-//     }),
-//     option: (provided: any, state: any) => ({
-//         ...provided,
-//         backgroundColor: state.isSelected ? '#f1f3f5' : 'white',
-//         color: '#696969',
-//         fontSize: 14,
-//         padding: 10,
-//         cursor: 'pointer',
-//         ':hover': {
-//             backgroundColor: 'lightgray'
-//         }
-//     })
-// };
 
 interface Option {
     value: number;
@@ -54,17 +30,19 @@ const qtySelectOptions: Option[] = [
 function NewEditModal({
   isCreate,
   shoplistItem,
-  setNewCreateDialogIsOpen,
-  // createShoplistItem,
+  createTheShoplistItem,
   updateTheShoplistItem,
+  setNewCreateDialogOpen,
 }: INewCreateModalProps) {
     const [itemname, setItemname] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [purchased, setPurchased] = useState(false);
+    const [canCreateOrUpdate, setCanCreateOrUpdate] = useState(false);
 
 
     useEffect(() => {
+        console.log('In useEffect in newEdit: ', isCreate, shoplistItem);
         if (!isCreate && shoplistItem.id) {
             //  We're updating
             setItemname(shoplistItem.itemname);
@@ -74,9 +52,13 @@ function NewEditModal({
         }
     }, []);
 
+    useEffect(() => {
+        itemname.length > 0 ? setCanCreateOrUpdate(true) : setCanCreateOrUpdate(false);
+    }, [itemname]);
+
     return (
         <>
-            <div className='dark-back-ground' onClick={() => setNewCreateDialogIsOpen(false)} />
+            <div className='dark-back-ground' onClick={() => setNewCreateDialogOpen(false)} />
             <div className='modal-centered'>
                 <div className='modal modal__new-create-modal'>
                     <div className='create-edit-banner'>
@@ -87,6 +69,7 @@ function NewEditModal({
                         <div className='explain-text explain-text__new-create-dlg'>{isCreate ? 'Add your new item below' : 'Edit your item below'}</div>
                         <input className='input-control'
                                placeholder='Item Name'
+                               value={!isCreate ? itemname: ''}
                                onChange={(event) => {
                                    setItemname(event.target.value);
                                }}
@@ -95,6 +78,7 @@ function NewEditModal({
                             <textarea className='text-area-control'
                                       maxLength={100}
                                       placeholder='Description'
+                                      value={!isCreate ? description : ''}
                                       onChange={(event) => {
                                           setDescription(event.target.value);
                                       }}
@@ -104,20 +88,34 @@ function NewEditModal({
                         <Select
                             // defaultValue={{value: 1, label: '1'}}
                             placeholder='How many?'
-                            onChange={(newValue) => {setQuantity(newValue ? newValue.value : 1)}}
+                            onChange={(newValue: any) => {setQuantity(newValue ? newValue.value : 1)}}
                             options={qtySelectOptions}
                             components={{
                                 IndicatorSeparator: () => null,
                             }}
+                            value={!isCreate ? {value: quantity, label: `${quantity}`} : ''}
                             styles={customSelectStyles}
                         />
                     </div>
                     <div className='modal-actions'>
                         <div className='actions-container'>
-                            <button className='cancel-modal-button' onClick={() => setNewCreateDialogIsOpen(false)}>
+                            <button className='cancel-modal-button' onClick={() => setNewCreateDialogOpen(false)}>
                                 Cancel
                             </button>
-                            <button className='main-modal-button' onClick={() => setNewCreateDialogIsOpen(false)}>
+                            <button className='main-modal-button'
+                                    disabled={!canCreateOrUpdate}
+                                    onClick={() => {
+                                        // Create a shoplistItem from our state
+                                        const newOrEditShoplistItem = {
+                                            id: shoplistItem ? shoplistItem.id : -1,
+                                            itemname: itemname,
+                                            description: description,
+                                            quantity: quantity,
+                                            purchased: purchased,
+                                        }
+                                        isCreate ? createTheShoplistItem(newOrEditShoplistItem) : updateTheShoplistItem(newOrEditShoplistItem);
+                                        setNewCreateDialogOpen(false)
+                            }}>
                                 {isCreate ? 'Add Task' : 'Save Item'}
                             </button>
                         </div>
@@ -132,7 +130,7 @@ export default connect(
     (state: IApplicationState) => ({
     }),
     (dispatch) => ({
-        setNewCreateDialogIsOpen: (isOpen: boolean) => {dispatch(setIsNewCreateDialogOpen({isOpen})); },
         updateTheShoplistItem: (shoplistItem: IShopListItem) => {dispatch(updateShoplistItem.started({shoplistItem}))},
+        createTheShoplistItem: (shoplistItem: IShopListItem) => {dispatch(createShoplistItem.started({shoplistItem}))},
     })
 )(NewEditModal);
