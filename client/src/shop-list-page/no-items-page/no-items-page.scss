@@ -1,0 +1,33 @@
+.no-items-centered {
+  min-height: 80vh; /* 80% of viewable height seems to put it right */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-items-content {
+  height: 290px;
+  width: 614px;
+  border: 1px solid #c6c6c6;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-first-item-button {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 11px 28px;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  border: none;
+  color: #fff;
+  background: #1871e8;
+  transition: all 0.25s ease;
+}
+
+.shop-list-empty-text {
+  color: #87898C;
+  margin-bottom: 20px;
+}

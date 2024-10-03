@@ -63,14 +63,14 @@ function NewEditModal({
                 <div className='modal modal__new-create-modal'>
                     <div className='create-edit-banner'>
                         <div className='banner-text'>SHOPPING LIST</div>
-                        <div className='material-icons banner-icon'>last_page</div>
+                        <div className='material-icons banner-icon' onClick={() => setNewCreateDialogOpen(false)}>last_page</div>
                     </div>
                     <div className='modal-content'>
                         <div className='modal-heading modal-heading__new-create-dlg'>{isCreate ? 'Add an Item' : 'Edit an Item'}</div>
                         <div className='explain-text explain-text__new-create-dlg'>{isCreate ? 'Add your new item below' : 'Edit your item below'}</div>
                         <input className='input-control'
                                placeholder='Item Name'
-                               value={!isCreate ? itemname: ''}
+                               value={itemname}
                                onChange={(event) => {
                                    setItemname(event.target.value);
                                }}
@@ -79,7 +79,7 @@ function NewEditModal({
                             <textarea className='text-area-control'
                                       maxLength={100}
                                       placeholder='Description'
-                                      value={!isCreate ? description : ''}
+                                      value={description}
                                       onChange={(event) => {
                                           setDescription(event.target.value);
                                       }}
@@ -94,7 +94,7 @@ function NewEditModal({
                             components={{
                                 IndicatorSeparator: () => null,
                             }}
-                            value={!isCreate ? {value: quantity, label: `${quantity}`} : ''}
+                            value={{value: quantity, label: `${quantity}`}}
                             styles={customSelectStyles}
                         />
                     </div>

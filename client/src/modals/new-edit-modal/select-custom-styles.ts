@@ -6,9 +6,13 @@ const customSelectStyles = {
         color: '#9ca8b4', // Change the text color of the selected value
         fontSize: 14
     }),
+    dropdownIndicator: (provided: any, state: any) => ({
+        ...provided,
+        color: '#9ca8b4', // Change the color of the arrow
+    }),
     control: (base: any, state: any) => ({
         ...base,
-        width: '99%',
+        width: '97%',
         borderColor: state.isFocused ? 'lightgray' : 'lightgray', // Customize focus color
         boxShadow: state.isFocused ? '0 0 0 1px lightgray' : 'none', // Customize focus shadow
         '&:hover': {

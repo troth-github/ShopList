@@ -7,6 +7,7 @@ import {IApplicationState} from "../store/store";
 import ShopListTableItem from './shop-list-item/shop-list-table-item'
 import './shop-list-page.scss'
 import NewEditModal from "../modals/new-edit-modal/new-edit-modal";
+import NoItemsPage from "./no-items-page/no-items-page";
 
 export interface IShoplistPageProps {
     shopListData: IShopListState;
@@ -29,6 +30,9 @@ function ShopListPage({
         <div className='shop-list-page'>
             {shopListData.fetchingShopList &&
                 <div className='waiting-for-data' />
+            }
+            {shopListData.shopListItems.length === 0 &&
+                <NoItemsPage />
             }
             {shopListData.shopListItems.length > 0 &&
                 <>
