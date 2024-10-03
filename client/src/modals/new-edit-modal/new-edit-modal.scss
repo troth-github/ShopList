@@ -39,9 +39,25 @@
 }
 
 .modal-content textarea::placeholder {
-  color: lightgrey;
+  color: #c6c6c6;
 }
 
 .modal-content input::placeholder {
-  color: lightgrey;
+  color: #c6c6c6;
+}
+
+.purchased-checkbox-section {
+  color: #c6c6c6;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.purchased-checkbox-section input[type=checkbox] {
+  height: 15px;
+  width: 15px;
+}
+
+.purchased-checkbox {
+  margin-right: 5px;
 }

@@ -97,6 +97,16 @@ function NewEditModal({
                             value={{value: quantity, label: `${quantity}`}}
                             styles={customSelectStyles}
                         />
+                        {!isCreate &&
+                            <div className='purchased-checkbox-section'>
+                                <input type='checkbox'
+                                       id='purchased-check'
+                                       className='purchased-checkbox'
+                                       checked={purchased}
+                                       onChange={() => {setPurchased(!purchased)}} />
+                                <label className='purchsed-label' htmlFor='purchased-check'>Purchased</label>
+                            </div>
+                        }
                     </div>
                     <div className='modal-actions'>
                         <div className='actions-container'>

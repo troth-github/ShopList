@@ -25,11 +25,16 @@ function ShoplistTableItem(
     const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
+    const itemNameStyle = shopListItem.purchased ? 'purchased-strike-thru' : '';
+    const secondTextStyle = shopListItem.purchased ?
+        'second-column second-column__second-text purchased-strike-thru' :
+        'second-column second-column__second-text'
+
     return (
         <div className='table-item table-item__white-border-box'>
             <div className='row_container'>
                 {/*First column - checkbox*/}
-                <span className='first-column'>
+                <div className='first-column'>
                     <input
                         type='checkbox'
                         checked={shopListItem.purchased}
@@ -39,33 +44,33 @@ function ShoplistTableItem(
                             sendShoplistItemPurchased(theItem);
                         }}
                     />
-                </span>
-                {/*Second column*/}
-                <span className='second-column'>
-                    <div>
+                </div>
+                {/* Second column - item name and description */}
+                <div className='second-column'>
+                    <div className={itemNameStyle}>
                         {shopListItem.itemname}
                     </div>
                     {shopListItem.description.length > 0 &&
                         // Its possible there is no description.
-                        <div className='second-column second-column__second-text'>
+                        <div className={secondTextStyle}>
                             {shopListItem.description}
                         </div>
                     }
-                </span>
-                {/*Edit*/}
-                <span key={`${shopListItem.id}-key`} className='edit-column'>
+                </div>
+                {/* Edit */}
+                <div key={`${shopListItem.id}-key`} className='edit-column'>
                     <div className="material-icons-outlined material-icon-hover"
                          onClick={() => {
                              setNewCreateDialogOpen(true);
                          }}>edit</div>
-                </span>
-                {/*Delete*/}
-                <span className='delete-column'>
+                </div>
+                {/* Delete */}
+                <div className='delete-column'>
                     <div className="material-icons-outlined material-icon-hover"
                          onClick={() => {
                             setDeleteDialogOpen(!deleteDialogOpen)
                          }}>delete</div>
-                </span>
+                </div>
             </div>
             {deleteDialogOpen && <DeleteModal setDeleteDialogOpen={setDeleteDialogOpen} shoplistItem={shopListItem}/>}
             {newCreateDialogOpen && <NewEditModal setNewCreateDialogOpen={setNewCreateDialogOpen} isCreate={false} shoplistItem={shopListItem} />}
