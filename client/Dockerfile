@@ -11,11 +11,10 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application code
-COPY index.js .
-COPY shoplist-item-queries.js .
+COPY . .
 
 # Expose the port on which the app runs
-EXPOSE 3001
+EXPOSE 3000
 
 # Command to run your application
 CMD ["npm", "start"]

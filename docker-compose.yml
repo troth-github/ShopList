@@ -1,9 +1,18 @@
 services:
+  frontend:
+    build: ./client
+    ports:
+      - '3000:3000' # Map container port 3000 to host port 3000
+    depends_on:
+      - node # Ensure PostgreSQL is started before the Node.js app
+    networks:
+      - mynetwork
+    volumes:
+      - /app
+
   # Node.js application service
   node:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: ./server
     ports:
       - '3001:3001' # Map container port 3000 to host port 3000
     environment:
@@ -27,7 +36,7 @@ services:
       POSTGRES_PASSWORD: Ussgris3!  # No No!  This should be gotten from somewhere more secure.
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./server/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
     networks:
       - mynetwork
 
