@@ -11,6 +11,7 @@ const shopListState: IShopListState = {
     createShoplistItemError: false,
     deletingShoplistItem: false,
     deleteShoplistItemError: false,
+    error: {},
 };
 
 export function shopList(state: IShopListState = shopListState, action: any): IShopListState {
@@ -24,10 +25,12 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
     }
 
     if (isType(action, Actions.getShoppingList.failed)) {
+        console.log('error is: ', action.meta)
         return {
             ...state,
             fetchingShopList: false,
             fetchingShopListError: true,
+            error: {error: {message: 'Failed to retrieve your shopping list'}},
         };
     }
 

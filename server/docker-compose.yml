@@ -10,7 +10,7 @@ services:
       POSTGRES_HOST: postgres
       POSTGRES_DB: shoppinglist
       POSTGRES_USER: shoplistuser
-      POSTGRES_PASSWORD: Ussgris3!
+      POSTGRES_PASSWORD: Ussgris3!  # No No!  This should be gotten from somewhere more secure.
     depends_on:
       - postgres # Ensure PostgreSQL is started before the Node.js app
     volumes:
@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_DB: shoppinglist
       POSTGRES_USER: shoplistuser
-      POSTGRES_PASSWORD: Ussgris3!
+      POSTGRES_PASSWORD: Ussgris3!  # No No!  This should be gotten from somewhere more secure.
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql

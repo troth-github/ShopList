@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getShoppingList} from '../state/actions/shop-list-actions';
-import {IShopListItem, IShopListState} from "../state/types";
+import {IShopListItem} from "../state/types";
 import {connect} from "react-redux";
 import * as shoplistSelectors from '../state/selectors/shoplist-selectors';
 import {IApplicationState} from "../store/store";
@@ -8,14 +8,21 @@ import ShopListTableItem from './shop-list-item/shop-list-table-item'
 import './shop-list-page.scss'
 import NewEditModal from "../modals/new-edit-modal/new-edit-modal";
 import NoItemsPage from "./no-items-page/no-items-page";
+import ErrorPage from "../error-page/error-page";
 
 export interface IShoplistPageProps {
-    shopListData: IShopListState;
+    shoppingListItems: IShopListItem[];
+    isFetchingShoplistError: boolean;
+    fetchingError: Record<string, any>;
+    fetchingShoplist: boolean;
     fetchShoppingList: () => void;
 }
 
 function ShopListPage({
-    shopListData,
+    shoppingListItems,
+    fetchingShoplist,
+    isFetchingShoplistError,
+    fetchingError,
     fetchShoppingList,
 }: IShoplistPageProps) {
 
@@ -25,23 +32,25 @@ function ShopListPage({
         fetchShoppingList();
     }, []);
 
-    console.log('shopListData is: ', shopListData);
     return (
         <div className='shop-list-page'>
-            {shopListData.fetchingShopList &&
+            {fetchingShoplist &&
                 <div className='waiting-for-data' />
             }
-            {shopListData.shopListItems.length === 0 &&
+            {isFetchingShoplistError &&
+                <ErrorPage errorMessage={fetchingError.message} />
+            }
+            {shoppingListItems.length === 0 && !isFetchingShoplistError &&
                 <NoItemsPage />
             }
-            {shopListData.shopListItems.length > 0 &&
+            {shoppingListItems.length > 0 &&
                 <>
                     <div className='shop-list-add-section'>
                         <div className='your-items-text'>Your Items</div>
                         <button className='add-item-button' onClick={() => setNewCreateDialogOpen(!newCreateDialogOpen)}>Add Item</button>
                     </div>
                     <div className='shop-list-page-table'>
-                        {shopListData.shopListItems.map((item: IShopListItem, idx: number) => {
+                        {shoppingListItems.map((item: IShopListItem, idx: number) => {
                             return(<ShopListTableItem key={idx} shopListItem={item} />)
                         })}
                     </div>
@@ -54,7 +63,10 @@ function ShopListPage({
 
 export default connect(
     (state: IApplicationState) => ({
-        shopListData: shoplistSelectors.getShoplistData(state),
+        shoppingListItems: shoplistSelectors.getShoplist(state),
+        fetchingShoplist: shoplistSelectors.isFetchingShoplist(state),
+        isFetchingShoplistError: shoplistSelectors.isFetchingShoplistError(state),
+        fetchingError: shoplistSelectors.fetchingError(state),
     }),
     (dispatch) => ({
         fetchShoppingList: () => {dispatch(getShoppingList.started({})); },
