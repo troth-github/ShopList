@@ -1,5 +1,3 @@
-import React from 'react';
-
 const customSelectStyles = {
     singleValue: (provided: any, state: any) => ({
         ...provided,

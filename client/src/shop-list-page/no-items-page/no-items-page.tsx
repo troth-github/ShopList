@@ -1,14 +1,6 @@
-import React, {useState} from 'react'
-import {connect} from "react-redux";
-import {IApplicationState} from "../../store/store";
-import {IShopListItem} from "../../state/types";
-import {createShoplistItem} from "../../state/actions/shop-list-actions";
+import React, {useState} from 'react';
 import NewEditModal from "../../modals/new-edit-modal/new-edit-modal";
-import './no-items-page.scss'
-
-interface INoItemsPageProps {
-    createTheShoplistItem: (shoplistItem: IShopListItem) => void;
-}
+import './no-items-page.scss';
 
 function NoItemsPage() {
 
@@ -27,10 +19,4 @@ function NoItemsPage() {
     );
 }
 
-export default connect(
-    (state: IApplicationState) => ({
-    }),
-    (dispatch) => ({
-        createTheShoplistItem: (shoplistItem: IShopListItem) => {dispatch(createShoplistItem.started({shoplistItem}))},
-    })
-)(NoItemsPage);
+export default (NoItemsPage);
