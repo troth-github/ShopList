@@ -20,8 +20,6 @@ function ShoplistTableItem(
     shopListItem,
     sendShoplistItemPurchased,
 }: IShopListItemProps) {
-    console.log('the shopListItem is:', shopListItem);
-
     const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 

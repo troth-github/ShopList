@@ -42,7 +42,6 @@ function NewEditModal({
 
 
     useEffect(() => {
-        console.log('In useEffect in newEdit: ', isCreate, shoplistItem);
         if (!isCreate && shoplistItem.id) {
             //  We're updating
             setItemname(shoplistItem.itemname);
@@ -50,7 +49,7 @@ function NewEditModal({
             setQuantity(shoplistItem.quantity);
             setPurchased(shoplistItem.purchased);
         }
-    }, []);
+    });
 
     useEffect(() => {
         itemname.length > 0 ? setCanCreateOrUpdate(true) : setCanCreateOrUpdate(false);
@@ -126,7 +125,7 @@ function NewEditModal({
                                         }
                                         isCreate ? createTheShoplistItem(newOrEditShoplistItem) : updateTheShoplistItem(newOrEditShoplistItem);
                                         setNewCreateDialogOpen(false)
-                            }}>
+                                    }}>
                                 {isCreate ? 'Add Task' : 'Save Item'}
                             </button>
                         </div>

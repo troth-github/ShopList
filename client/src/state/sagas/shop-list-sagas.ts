@@ -5,7 +5,6 @@ import {IShopListItem} from "../types";
 
 function* getShoppingListSaga(action: {payload:{}}): IterableIterator<any> {
     try {
-        console.log('IN SAGA:  about to call out to fetchShoppingList');
         const shoplistData = yield call(fetchShoplistItems);
 
         // @ts-ignore

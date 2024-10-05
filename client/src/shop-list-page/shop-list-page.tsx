@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {getShoppingList} from '../state/actions/shop-list-actions';
 import {IShopListItem} from "../state/types";
 import {connect} from "react-redux";
@@ -28,9 +28,14 @@ function ShopListPage({
 
     const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
 
+    // Fix the recursive nature of useEffect by memoizing the fetchShoppingList method.
+    const fetchTheShoppinglist = useCallback(() => {
+        fetchShoppingList()
+    }, [fetchShoppingList])
+
     useEffect(() => {
-        fetchShoppingList();
-    }, []);
+        fetchTheShoppinglist();
+    }, [fetchTheShoppinglist]);
 
     return (
         <div className='shop-list-page'>

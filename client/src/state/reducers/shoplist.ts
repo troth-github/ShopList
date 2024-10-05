@@ -25,7 +25,6 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
     }
 
     if (isType(action, Actions.getShoppingList.failed)) {
-        console.log('error is: ', action.meta)
         return {
             ...state,
             fetchingShopList: false,
@@ -92,7 +91,6 @@ export function shopList(state: IShopListState = shopListState, action: any): IS
     }
 
     if (isType(action, Actions.deleteShoplistItem.done)) {
-        console.log('In delete reducer done. payload is: ', action.payload)
         return {
             ...state,
             deletingShoplistItem: false,
