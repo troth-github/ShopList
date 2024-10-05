@@ -1,0 +1,38 @@
+services:
+  # Node.js application service
+  node:
+    build: ./server
+    ports:
+      - '3001:3001' # Map container port 3000 to host port 3000
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: shoppinglist
+      POSTGRES_USER: shoplistuser
+      POSTGRES_PASSWORD: Ussgris3!  # No No!  This should be gotten from somewhere more secure.
+    depends_on:
+      - postgres # Ensure PostgreSQL is started before the Node.js app
+    volumes:
+      - .:/usr/src/app # For local development, mounting the code for hot-reloading (optional)
+    networks:
+      - mynetwork
+
+  # PostgreSQL service
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: shoppinglist
+      POSTGRES_USER: shoplistuser
+      POSTGRES_PASSWORD: Ussgris3!  # No No!  This should be gotten from somewhere more secure.
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - mynetwork
+
+# Define the shared network
+networks:
+  mynetwork:
+
+# Define the volumes for persistent storage
+volumes:
+  postgres_data:
