@@ -32,7 +32,7 @@ function ShoplistTableItem(
         <div className='table-item table-item__white-border-box'>
             <div className='row_container'>
                 {/*First column - checkbox*/}
-                <div className='first-column'>
+                <div className='first-column' title='Mark purchased'>
                     <input
                         type='checkbox'
                         checked={shopListItem.purchased}
