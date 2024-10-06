@@ -49,7 +49,7 @@ function NewEditModal({
             setQuantity(shoplistItem.quantity);
             setPurchased(shoplistItem.purchased);
         }
-    });
+    }, []);
 
     useEffect(() => {
         itemname.length > 0 ? setCanCreateOrUpdate(true) : setCanCreateOrUpdate(false);
