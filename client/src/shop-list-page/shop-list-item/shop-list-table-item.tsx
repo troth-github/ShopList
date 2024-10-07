@@ -23,7 +23,7 @@ function ShoplistTableItem(
     const [newCreateDialogOpen, setNewCreateDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    const itemNameStyle = shopListItem.purchased ? 'purchased-strike-thru' : '';
+    const itemNameStyle = shopListItem.purchased ? 'purchased-strike-thru purchased-strike-thru__first-item' : '';
     const secondTextStyle = shopListItem.purchased ?
         'second-column second-column__second-text purchased-strike-thru' :
         'second-column second-column__second-text'
@@ -56,19 +56,19 @@ function ShoplistTableItem(
                     }
                 </div>
                 {/* Edit */}
-                <div key={`${shopListItem.id}-key`} className='edit-column'>
+                <span key={`${shopListItem.id}-key`} className='edit-column'>
                     <div className="material-icons-outlined material-icon-hover"
                          onClick={() => {
                              setNewCreateDialogOpen(true);
                          }}>edit</div>
-                </div>
+                </span>
                 {/* Delete */}
-                <div className='delete-column'>
+                <span className='delete-column'>
                     <div className="material-icons-outlined material-icon-hover"
                          onClick={() => {
                             setDeleteDialogOpen(!deleteDialogOpen)
                          }}>delete</div>
-                </div>
+                </span>
             </div>
             {deleteDialogOpen && <DeleteModal setDeleteDialogOpen={setDeleteDialogOpen} shoplistItem={shopListItem}/>}
             {newCreateDialogOpen && <NewEditModal setNewCreateDialogOpen={setNewCreateDialogOpen} isCreate={false} shoplistItem={shopListItem} />}
